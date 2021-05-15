@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Three JS</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+      integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        padding-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <script>
+            // from https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(
+              75,
+              window.innerWidth / window.innerHeight,
+              0.1,
+              1000
+            );
+
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            const geometryBox = new THREE.BoxGeometry();
+            const geometryCircle = new THREE.CircleGeometry(2,150);
+            const materialGreen = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            const cube = new THREE.Mesh(geometryBox, materialGreen);
+            const circleMaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+            const circle = new THREE.Mesh(geometryCircle, circleMaterial);
+            scene.add(cube);
+            scene.add(circle);
+
+            camera.position.z = 5;
+            function animate() {
+              requestAnimationFrame(animate);
+              cube.rotation.x += 0.01;
+              cube.rotation.y += 0.02;
+              circle.rotation.x += 0.03;
+              circle.rotation.y += 0.04;
+              renderer.render(scene, camera);
+            }
+            animate();
+          </script>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
